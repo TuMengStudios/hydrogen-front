@@ -1,15 +1,22 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { get } from '@/api/request'
+
 const start = () => {
-  console.log("welcome");
+  get<number>('/health').then((res) => {
+    console.log(`health response ${res.data}`)
+  })
 };
-start();
+
+onMounted(() => {
+  start();
+})
 </script>
 
 <template>
   <p>
-    <router-link class="tab-nav" to="/">task list</router-link>
-    <router-link class="tab-nav" to="/debug">调试作业</router-link>
-    <router-link class="tab-nav" to="/counter">counter</router-link>
+    <!-- <router-link class="tab-nav" to="/demo">demo page</router-link> -->
+    <router-link class="tab-nav" to="/">demo page</router-link>
   </p>
   <router-view></router-view>
 </template>

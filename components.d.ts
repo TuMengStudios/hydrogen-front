@@ -7,20 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Counter: typeof import('./src/components/Counter.vue')['default']
-    DebugItem: typeof import('./src/components/task/DebugItem.vue')['default']
-    DebugView: typeof import('./src/components/task/DebugView.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElRadio: typeof import('element-plus/es')['ElRadio']
-    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
-    ElTable: typeof import('element-plus/es')['ElTable']
-    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    Demo: typeof import('./src/components/demo/Demo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TaskList: typeof import('./src/components/task/TaskList.vue')['default']
   }
 }
