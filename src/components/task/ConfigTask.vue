@@ -278,6 +278,9 @@ const isJson = computed(() => {
 
 const updateTask = () => {
   console.log(raw_data.task);
+  raw_data.task.parser_config.keys = computeKey(raw_data.task.property_item, "", raw_data.task.parser_config.sep)
+  raw_data.task.parser_config.ignore = computeIgnore(raw_data.task.property_item, "", raw_data.task.parser_config.sep)
+  raw_data.task.parser_config.fold = computeFold(raw_data.task.property_item, "", raw_data.task.parser_config.sep)
   put("/task", raw_data.task).then(res => {
     console.log("update task", res);
     if (res.err_no === 10000) {

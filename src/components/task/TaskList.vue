@@ -24,7 +24,7 @@
     </el-table-column>
     <el-table-column prop="updated_at" label="updated_at" width="180">
       <template #default="scope">
-        {{ $dayjs.unix(scope.row.updated_at).fromNow() }}
+        {{ scope.row.updated_at != 0 ? $dayjs.unix(scope.row.updated_at).fromNow() : '-' }}
       </template>
     </el-table-column>
     <el-table-column prop="heartbeat" label="heartbeat" width="180">
