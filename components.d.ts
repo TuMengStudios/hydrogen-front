@@ -7,8 +7,25 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ConfigTask: typeof import('./src/components/task/ConfigTask.vue')['default']
     Demo: typeof import('./src/components/demo/Demo.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
+    ElOption: typeof import('element-plus/es')['ElOption']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElRadio: typeof import('element-plus/es')['ElRadio']
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    Item: typeof import('./src/components/task/Item.vue')['default']
+    KafkaDst: typeof import('./src/components/task/KafkaDst.vue')['default']
+    KafkaSrc: typeof import('./src/components/task/KafkaSrc.vue')['default']
+    Property: typeof import('./src/components/task/Property.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TaskList: typeof import('./src/components/task/TaskList.vue')['default']
   }
 }

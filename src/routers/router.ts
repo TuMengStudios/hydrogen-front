@@ -1,12 +1,22 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Demo from "@/components/demo/Demo.vue";
+
+import ConfigTask from "@/components/task/ConfigTask.vue";
+import TaskList from "@/components/task/TaskList.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: "/",
-      component: Demo,
+      component: TaskList,
+    },
+    {
+      path: "/config",
+      component: ConfigTask,
+    },
+    {
+      path: "/tasklist",
+      component: TaskList,
     },
   ],
 });

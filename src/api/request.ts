@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_URL;
 
 const instance: AxiosInstance = axios.create({
-  timeout: 30_000,
+  timeout: 60_000,
   headers: { "Content-Type": "application/json; charset=UTF-8" },
 });
 
@@ -42,9 +42,16 @@ const request = <T = undefined>(
       data: options.data,
       params: options.params,
       headers: options.header,
-      timeout: 30_000, // 30 秒超时
+      timeout: 60_000, // 30 秒超时
     })
-    .then((res: AxiosResponse) => res.data as Response<T>);
+    .then((res: AxiosResponse) => {
+      let body = res.data as Response<T>;
+      if (body.err_no !== 10000) {
+        // res.headers["Trace-Id"]
+      }
+      console.log(body)
+      return body;
+    });
 };
 
 const post = <T = undefined>(url: string, body?: any, params?: any, headers?: {}): Promise<Response<T>> => {
