@@ -17,7 +17,7 @@
     </el-table-column>
     <el-table-column prop="handle_num" label="handle_num" width="180"></el-table-column>
     <el-table-column prop="handle_err" label="handle_err" width="180"></el-table-column>
-    <el-table-column prop="created_at" label="created_at" width="180">
+    <el-table-column prop="created_at" label="created_at" width="120">
       <template #default="scope">
         {{ $dayjs.unix(scope.row.created_at).fromNow() }}
       </template>
@@ -27,9 +27,8 @@
         {{ scope.row.updated_at != 0 ? $dayjs.unix(scope.row.updated_at).fromNow() : '-' }}
       </template>
     </el-table-column>
-    <el-table-column prop="heartbeat" label="heartbeat" width="180">
+    <el-table-column prop="heartbeat" label="heartbeat" width="120">
       <template #default="scope">
-
         {{ scope.row.heartbeat !== 0 ? $dayjs.unix(scope.row.heartbeat).fromNow() : "-" }}
       </template>
     </el-table-column>
@@ -39,17 +38,26 @@
         <span
           v-else-if="scope.row.status === StatusCreated || scope.row.status === StatusStop || scope.row.status === StatusError"
           @click="startJob(scope.row.id)">start</span>
-
         <span v-else>-</span>
       </template>
     </el-table-column>
 
-    <el-table-column label="op" width="180">
+    <el-table-column label="op" width="120">
       <template #default="scope">
         <span v-if="scope.row.status === StatusRunning">-</span>
         <span
           v-else-if="scope.row.status === StatusStop || scope.row.status === StatusCreated || scope.row.status === StatusError"
           @click="modifyTask(scope.row.id)">modify</span>
+        <span v-else>-</span>
+      </template>
+    </el-table-column>
+
+    <el-table-column label="del" width="120">
+      <template #default="scope">
+        <span v-if="scope.row.status === StatusRunning">-</span>
+        <span
+          v-else-if="scope.row.status === StatusStop || scope.row.status === StatusCreated || scope.row.status === StatusError"
+          @click="delTask(scope.row.id)">delete</span>
         <span v-else>-</span>
       </template>
     </el-table-column>
@@ -61,13 +69,23 @@
 </template>
 <script setup lang="ts">
 import { reactive, onMounted, getCurrentInstance } from "vue";
-import { get, post } from '@/api/request';
-import { FetchTaskListRequest, PAGE_SIZE, StatusCreated, StatusError, StatusList, StatusRunning, StatusStop, TaskInfo, TaskStatusCountRequest, TaskStatusCountResponse } from "./types";
+import { get, post, put } from '@/api/request';
+import {
+  FetchTaskListRequest,
+  PAGE_SIZE,
+  StatusCreated,
+  StatusError,
+  StatusList,
+  StatusRunning,
+  StatusStop,
+  TaskInfo,
+  TaskStatusCountResponse
+} from "./types";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 const { appContext } = getCurrentInstance()!;
+
 const router = useRouter();
-console.log('hello');
 
 const data = reactive<{
   req: FetchTaskListRequest,
@@ -142,6 +160,13 @@ const startJob = (id: number) => {
 const modifyTask = (id: number) => {
   console.log('modify ', id);
   router.push({ path: "/config", query: { id: id } })
+}
+
+const delTask = (id: number) => {
+  put(`/task/del/${id}`).then(res => {
+    console.log(res);
+    fetch_task_list(data.req);
+  });
 }
 
 const stopTask = (id: number) => {

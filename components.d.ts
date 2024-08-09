@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ConfigTask: typeof import('./src/components/task/ConfigTask.vue')['default']
-    Demo: typeof import('./src/components/demo/Demo.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
@@ -19,6 +18,9 @@ declare module 'vue' {
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Item: typeof import('./src/components/task/Item.vue')['default']
     KafkaDst: typeof import('./src/components/task/KafkaDst.vue')['default']
     KafkaSrc: typeof import('./src/components/task/KafkaSrc.vue')['default']

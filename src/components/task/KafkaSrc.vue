@@ -1,39 +1,32 @@
 <template>
-  <div class="data-source-title">
-    <span>kafka data source config</span>
-  </div>
   <div class="config-box">
-    <span>connect params</span>
-    <el-input placeholder="bootstrap.servers=localhost:9092,127.0.0.1:9092&message.timeout.ms=5000"
+    <el-input
+      placeholder="kafka consumer params etc:bootstrap.servers=localhost:9092,127.0.0.1:9092&message.timeout.ms=5000"
       v-model="source_config.params" :autosize="{ minRows: 3 }" :rows="5" type="textarea"></el-input>
-    <el-button @click="fetch_topic">topic</el-button>
   </div>
-  <!-- select topic from source broker -->
-  <el-select v-model="source_config.topic">
-    <el-option v-for="(tp, index) in topics" :key="index" :label="tp" :value="tp"></el-option>
-  </el-select>
+  <div v-if="source_config.params" class="topic-check-container">
+    <el-button @click="fetch_topic"  size="default">fetch topic</el-button>
+    <el-select v-if="topics" v-model="source_config.topic">
+      <el-option v-for="(topic, index) in topics" :key="index" :label="topic" :value="topic"></el-option>
+    </el-select>
+  </div>
+
 </template>
 
 <script setup lang="ts">
-
-import { getCurrentInstance, reactive, ref } from "vue";
-import { SrcKafkaConfig } from "./types";
-import { post, get } from '@/api/request';
+import { getCurrentInstance, ref } from "vue";
 import { ElMessage } from "element-plus";
 
-import qs from 'qs';
-
-const tplParams = "bootstrap.servers=localhost:9092&message.timeout.ms=5000";
+import { SrcKafkaConfig } from "./types";
+import { post, get } from '@/api/request';
 
 const { appContext } = getCurrentInstance()!;
 
 let prop = defineProps<{ source_config: SrcKafkaConfig }>();
 
-prop.source_config.params = tplParams;
 let topics = ref<string[]>([])
 
-const fetch_topic = async () => {
-
+const fetch_topic = async (): Promise<void> => {
   if (prop.source_config.params === undefined || prop.source_config.params === "") {
     ElMessage({ message: 'invalid kafka connect', type: 'error' }, appContext);
     return;
@@ -53,7 +46,6 @@ const fetch_topic = async () => {
   console.log(prop.source_config)
 };
 
-
 </script>
 <style lang="css" scoped>
 /*  */
@@ -62,13 +54,17 @@ const fetch_topic = async () => {
   margin-top: 4px;
   margin-bottom: 8px;
   font-size: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .config-box {
-  margin-left: 32px;
-  margin-right: 32px;
-  margin-top: 4px;
-  margin-bottom: 6px;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.topic-check-container {
+  display: flex;
+  align-items: center;
 }
 </style>

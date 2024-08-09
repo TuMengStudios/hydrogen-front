@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 
-import { onMounted, reactive, ref, computed, getCurrentInstance } from "vue";
+import { reactive, getCurrentInstance } from "vue";
 import { post } from "@/api/request";
 import { Fold, Ignore, Keep, Property, PropertyItem, reset_property } from "./types";
 import Item from "./Item.vue";
@@ -124,10 +124,7 @@ const compute_fold_wrap = () => {
   let fold = compute_fold(data.property.item, '', data.sep);
   console.log('fold == ', fold)
 }
-onMounted(() => {
-  let val = JSON.parse(data.plain_text)
-  parser_property(data.sep, val)
-});
+
 
 const detected_plain_text = (plain_text: string): any => {
   try {

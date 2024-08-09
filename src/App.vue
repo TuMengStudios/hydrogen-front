@@ -1,11 +1,25 @@
 <script setup lang="ts">
+import { TabPaneName } from 'element-plus';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// 页面导航
+const pageChange = (name: TabPaneName) => {
+  console.log("page change ", name);
+  router.push({ path: `/${name}` })
+}
+
 </script>
 
 <template>
-  <div class="nav-bar">
-    <router-link class="tab-nav" to="/tasklist">tasklist</router-link>
-    <router-link class="tab-nav" to="/config">config</router-link>
-  </div>
+
+  <el-tabs class="title-bar text-30 " @tab-change="pageChange">
+    <el-tab-pane class="" label="task list" name="tasklist">
+    </el-tab-pane>
+    <el-tab-pane label="config" name="config">
+    </el-tab-pane>
+  </el-tabs>
   <router-view></router-view>
 </template>
 
@@ -21,5 +35,9 @@
   margin-right: 16px;
   font-size: 20px;
   font-family: sans-serif;
+}
+
+.title-bar {
+  margin: 16px;
 }
 </style>
