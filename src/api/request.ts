@@ -49,7 +49,7 @@ const request = <T = undefined>(
       if (body.err_no !== 10000) {
         // res.headers["Trace-Id"]
       }
-      console.log(body)
+      console.log(body);
       return body;
     });
 };
